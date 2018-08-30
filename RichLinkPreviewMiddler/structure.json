@@ -1,0 +1,64 @@
+{
+  "config": {
+    "host": "http://probis.infostrum.com.tw/",
+    "imgroot": "assets/img/"
+  },
+  "messages": [
+    {
+      "filename": "index_tw.html",
+      "title": "Probis鉑思證券",
+      "description": "鉑思證券是澳洲的頂級外匯及價差合約交易商，受澳洲證券及投資事務監察委員會(ASIC)授權及監管，牌照號碼為403070，是外匯保證金、商品價差合約（CFD）以及證券價差合約（CFD）網路交易的專業服務提供者。",
+      "image": "probis.jpg",
+      "link": "index.html?locale=zh"
+    },
+    {
+      "filename": "autonapp.html",
+      "title": "Auton App移動端平台",
+      "description": "為客戶提供高效、安全和具備卓越功能的線上交易服務，您只需登入交易平台，便可以全天候 24 小時進行外匯、指數、貴金屬及商品差價合約交易。",
+      "image": "auton.png",
+      "link": "https://play.google.com/store/apps/details?id=com.ifx.AAAuton"
+    },
+    {
+      "filename": "demoaccount.html",
+      "title": "體驗模擬帳戶",
+      "description": "在進行實際交易之前，建議您由模擬交易開始，熟練和增强您運用交易平台的技術。",
+      "image": "experience.png",
+      "link": "account.html?locale=zh#menu3"
+    },
+    {
+      "filename": "openaccount.html",
+      "title": "線上開設真實帳戶",
+      "description": "有開戶意向或希望進一步瞭解具體內容，在簡單填寫以下資料後，會有負責的專員與您聯繫。",
+      "image": "new-account.png",
+      "link": "account.html?locale=zh#menu1"
+    },
+    {
+      "filename": "transaction.html",
+      "title": "入出金指南",
+      "description": "匯款時，請在備註中清楚注明帳戶持有人姓名及所持有帳戶的帳戶號碼或用戶代碼。",
+      "image": "money-transfer.png",
+      "link": "account.html?locale=zh#menu2"
+    },
+    {
+      "filename": "fincalendar.html",
+      "title": "財經日曆",
+      "description": "財經日曆讓我們的客戶可以輕鬆獲取每一天公佈的重要的經濟事件。按日期、產品和重要性為您篩選呈現。",
+      "image": "financial-calendar.png",
+      "link": "market.html?locale=zh"
+    },
+    {
+      "filename": "resetpw.html",
+      "title": "重設密碼",
+      "description": "提交用戶代碼及登記的電郵地址，新密碼及新服務密碼即刻發送到您郵箱。",
+      "image": "reset-password.png",
+      "link": "http://ds.aafx.com/aafx_password_reset_form.htm?lang=zh_TW "
+    },
+    {
+      "filename": "53kf.html",
+      "title": "線上客服諮詢",
+      "description": "產品的交易時間段內，遇到任何交易方面問題，可通過線上諮詢與華語客服專員取得聯繫，專業的客服人員會第一時間為您解答。",
+      "image": "online-cs.png",
+      "link": "http://www11.53kf.com/webCompany.php?arg=10152710"
+    }
+  ]
+}

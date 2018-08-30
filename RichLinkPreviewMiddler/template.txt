@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="tw">
+	<head>
+		<!-- COMMON TAGS -->
+		<meta charset="utf-8">
+		<title>{0}</title>
+		
+		<!-- Search Engine -->
+		<meta name="description" content="{1}">
+		<meta name="image" content="{2}">
+		
+		<!-- Schema.org for Google -->
+		<meta itemprop="name" content="{0}">
+		<meta itemprop="description" content="{1}">
+		<meta itemprop="image" content="{2}">
+		
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content="{0}">
+		<meta name="twitter:description" content="{1}">
+
+		<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+		<meta name="og:title" content="{0}">
+		<meta name="og:description" content="{1}">
+		<meta name="og:image" content="{2}">
+		<meta name="og:url" content="{3}">
+		<meta name="og:site_name" content="Probis">
+		<meta name="og:locale" content="tw">
+		<meta name="og:type" content="website">
+	</head>
+	<body>
+		<script>
+		location.href = "{3}";
+		</script>
+	</body>
+</html>
