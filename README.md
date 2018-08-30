@@ -6,6 +6,7 @@
 
 
 ## How to work
-- you need to fill the structure.json, and execute the RichLinkPreviewMiddler.exe
+- you need to fill the structure.json, and execute the RichLinkPreviewMiddler.exe.
+- in the block of messages, you can reference this picture to edit the preivew content.
 
 ![](structure.png)
