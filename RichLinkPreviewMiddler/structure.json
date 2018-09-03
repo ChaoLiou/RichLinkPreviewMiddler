@@ -1,6 +1,6 @@
 {
   "config": {
-    "host": "http://probis.infostrum.com.tw/",
+    "host": "http://aafx.com/",
     "imgroot": "assets/img/"
   },
   "messages": [
@@ -16,7 +16,8 @@
       "title": "Auton App移動端平台",
       "description": "為客戶提供高效、安全和具備卓越功能的線上交易服務，您只需登入交易平台，便可以全天候 24 小時進行外匯、指數、貴金屬及商品差價合約交易。",
       "image": "auton.png",
-      "link": "https://play.google.com/store/apps/details?id=com.ifx.AAAuton"
+      "link": "https://play.google.com/store/apps/details?id=com.ifx.AAAuton",
+	  "script": "if(navigator.userAgent.match(/(iphone|ipad|ipod);?/i))location.href = 'https://itunes.apple.com/cn/app/aa-auton/id1206698347'; else location.href = 'https://play.google.com/store/apps/details?id=com.ifx.AAAuton';"
     },
     {
       "filename": "demoaccount.html",

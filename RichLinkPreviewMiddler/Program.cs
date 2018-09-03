@@ -38,12 +38,14 @@ namespace RichLinkPreviewMiddler
             {
                 var imgRelativePath = Path.Combine(info.config.imgroot, msg.image);
                 var templateContent = File.ReadAllText(templateTXT);
+                var link = formatLink(info.config.host, msg.link);
                 var content = string.Format(
                     templateContent, 
                     msg.title, 
                     msg.description, 
                     imgRelativePath, 
-                    formatLink(info.config.host, msg.link));
+                    link,
+                    string.IsNullOrWhiteSpace(msg.script) ? ("location.href ='" + link + "';") : msg.script);
                 File.WriteAllText(Path.Combine(outputDirectory, msg.filename), content);
             }
         }

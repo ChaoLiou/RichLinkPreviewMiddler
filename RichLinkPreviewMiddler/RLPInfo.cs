@@ -39,5 +39,7 @@ namespace RichLinkPreviewMiddler
         public string image { get; set; }
         [DataMember]
         public string link { get; set; }
+        [DataMember]
+        public string script { get; set; }
     }
 }
