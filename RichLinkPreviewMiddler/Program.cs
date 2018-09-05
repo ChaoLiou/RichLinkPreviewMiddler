@@ -3,6 +3,11 @@ using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.IO;
 using Renci.SshNet;
+using System.Text;
+using System.Reflection;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace RichLinkPreviewMiddler
 {
@@ -10,21 +15,78 @@ namespace RichLinkPreviewMiddler
     {
         static void Main(string[] args)
         {
-            var rootDirectory = Directory.GetCurrentDirectory();
+            Console.Write("\rInitializing...");
+            var rootDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var structureJSON = Path.Combine(rootDirectory, "structure.json");
             var outputDirectory = Path.Combine(rootDirectory, "output");
             var templateTXT = Path.Combine(rootDirectory, "template.txt");
+            var destinationOnServer = "/var/www/html/probis/rlpm/";
 
-            var info = deserializeTo<RLPMInfo>(structureJSON);
+            consoleWriteWithColor("\rInitializing => Success", ConsoleColor.DarkGreen);
+            consoleLog(new
+            {
+                DirectoryRoot = rootDirectory,
+                JSONPath = "{DirectoryRoot}" + structureJSON.Replace(rootDirectory, string.Empty),
+                OutputDirectory = "{DirectoryRoot}" + outputDirectory.Replace(rootDirectory, string.Empty),
+                TemplatePath = "{DirectoryRoot}" + templateTXT.Replace(rootDirectory, string.Empty),
+                DestinationOnServer = destinationOnServer
+            });
+
+            Console.Write("\r1. Deserializing the Content of {JSONPath}...");
+            RLPMInfo info = null;
+
+            try
+            {
+                info = deserializeTo<RLPMInfo>(structureJSON);
+            }
+            catch (Exception e)
+            {
+                consoleWriteWithColor("\r2. Deserializing the Content of {JSONPath} => Fail", ConsoleColor.DarkRed);
+                consoleLog(e);
+            }
+
             if (info != null)
             {
+                consoleWriteWithColor("\r1. Deserializing the Content of {JSONPath} => Success", ConsoleColor.DarkGreen);
+                consoleLog(new
+                {
+                    Count = info.messages.Count,
+                    TemplatePath = "{TemplatePath}",
+                    OutputDirectory = "{OutputDirectory}"
+                });
+                Console.Write("\r2. Generating HTML To {OutputDirectory}...");
                 generateHTML(info, templateTXT, outputDirectory);
+                consoleWriteWithColor("\r2. Generating HTML To {OutputDirectory} => Success", ConsoleColor.DarkGreen);
 
                 if (args.Any() && args.Length == 3)
                 {
-                    mirrorToServer(host: args[0], username: args[1], password: args[2], outputDirectory: outputDirectory);
+                    consoleLog(new
+                    {
+                        Host = args[0],
+                        UserName = args[1],
+                        Password = args[2],
+                        Source = "{OutputDirectory}",
+                        Destination = "{DestinationOnServer}"
+                    });
+                    Console.Write("\r3. Mirroring to Server on {Host} w/ {UserName}/{Password}...");
+                    mirrorToServer(host: args[0], username: args[1], password: args[2], outputDirectory: outputDirectory, destinationRoot: destinationOnServer);
+                    consoleWriteWithColor("\r3. Mirroring to Server on {Host} w/ {UserName}/{Password} => Success", ConsoleColor.DarkGreen);
                 }
             }
+
+            Console.Read();
+        }
+
+        private static void consoleWriteWithColor(string text, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(text);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        private static void consoleLog(object obj)
+        {
+            Console.WriteLine(obj.ToOutput());
         }
 
         private static void generateHTML(RLPMInfo info, string templateTXT, string outputDirectory)
@@ -40,10 +102,10 @@ namespace RichLinkPreviewMiddler
                 var templateContent = File.ReadAllText(templateTXT);
                 var link = formatLink(info.config.host, msg.link);
                 var content = string.Format(
-                    templateContent, 
-                    msg.title, 
-                    msg.description, 
-                    imgRelativePath, 
+                    templateContent,
+                    msg.title,
+                    msg.description,
+                    imgRelativePath,
                     link,
                     string.IsNullOrWhiteSpace(msg.script) ? ("location.href ='" + link + "';") : msg.script);
                 File.WriteAllText(Path.Combine(outputDirectory, msg.filename), content);
@@ -67,9 +129,8 @@ namespace RichLinkPreviewMiddler
             }
         }
 
-        private static void mirrorToServer(string host, string username, string password, string outputDirectory)
+        private static void mirrorToServer(string host, string username, string password, string outputDirectory, string destinationRoot)
         {
-            var destinationRoot = "/var/www/html/probis/rlpm/";
             using (var client = new SftpClient(host, username, password))
             {
                 client.Connect();
